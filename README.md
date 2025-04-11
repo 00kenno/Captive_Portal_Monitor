@@ -26,4 +26,14 @@ void setup() {
 
 ### monitor.update(char *p)
 任意の場所で実行できます．
-monitorインスタンスが持つ長さが256のchar型の配列にその内容がコピーされます．
+monitorインスタンスが持つ長さが256のchar型の配列(data)にその内容がコピーされます．
+
+```cpp
+void loop() {
+  uint32_t now = millis(); // Returns the number of milliseconds passed since the Arduino board began running the current program.
+  char data[256];
+  sprintf(data, "%d", now);
+  monitor.update(data); // Update data in monitor.
+  delay(100);
+}
+```
