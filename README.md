@@ -26,7 +26,7 @@ void setup() {
 
 ### monitor.update(char *p)
 任意の場所で実行できます．
-monitorインスタンスが持つ長さが256のchar型の配列(data)にその内容がコピーされます．
+monitorインスタンスが持つ10KBのchar型の配列(data)にその内容がコピーされます．
 
 ```cpp
 void loop() {
