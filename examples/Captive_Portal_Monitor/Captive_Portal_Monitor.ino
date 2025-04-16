@@ -1,4 +1,4 @@
-//Captive_Portal_String_Monitor
+//Captive_Portal_Monitor
 //WiFiを利用したスマートフォンやPCで確認できるデバッグ用モニターです．
 
 //ライブラリをインクルードする必要があります．
@@ -9,7 +9,7 @@
 //→「.ZIP形式のライブラリをインストール...」
 
 //「ログインが必要です」などと表示される画面（キャプティブポータル）で
-//任意の長さが256までの文字列（改行コードを含む）をモニターできます．
+//10KB以下の任意の文字列（改行コードを含む）をモニターできます．
 
 //WiFiのSSIDは Captive_Portal_String_Monitor
 //WiFiのPASSWORDは 12345678 です．
@@ -19,9 +19,9 @@
 //Raspberry Pi Pico W
 //Raspberry Pi Pico 2W
 
-#include <Captive_Portal_String_Monitor.h>
+#include <Captive_Portal_Monitor.h>
 
-Captive_Portal_String_Monitor monitor;
+Captive_Portal_Monitor monitor;
 
 void setup() {
   monitor.begin();

@@ -1,1 +1,1 @@
-Captive_Portal_String_Monitor	KEYWORD1
+Captive_Portal_Monitor	KEYWORD1

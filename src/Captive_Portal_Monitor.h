@@ -1,9 +1,9 @@
 //Webサーバーに関するクラスの定義
 
-#ifndef CAPTIVE_PORTAL_STRING_MONITOR_H
-#define CAPTIVE_PORTAL_STRING_MONITOR_H
+#ifndef CAPTIVE_PORTAL_MONITOR_H
+#define CAPTIVE_PORTAL_MONITOR_H
 
-#define WIFI_SSID "Captive_Portal_String_Monitor"
+#define WIFI_SSID "Captive_Portal_Monitor"
 #define WIFI_PASSWORD "12345678"
 
 #include <Arduino.h>
@@ -17,17 +17,17 @@
 #include <DNSServer.h>
 #include <WebServer.h>
 
-class Captive_Portal_String_Monitor {
+class Captive_Portal_Monitor {
   public:
-    Captive_Portal_String_Monitor();
+    Captive_Portal_Monitor();
     void begin();
     void update(char *p);
 
   private:
-    static char data[256];
+    static char data[10*1024];
     static void handleRoot();
     static void getData();
     static void loop(void *param);
 };
 
-#endif // CAPTIVE_PORTAL_STRING_MONITOR_H
+#endif // CAPTIVE_PORTAL_MONITOR_H

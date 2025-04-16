@@ -11,7 +11,7 @@ char html[] = R"(
     <meta charset='utf-8' />
       <meta http-equiv='X-UA-Compatible' content='IE=edge' />
       <meta name='viewport' content='width=device-width,initial-scale=1' />
-      <title>Captive_Portal_String_Monitor</title>
+      <title>Captive_Portal_Monitor</title>
   </head>
   <style>
     body {
@@ -39,7 +39,7 @@ char html[] = R"(
     }
   </style>
   <body>
-    <h1>Captive_Portal_String_Monitor</h1>
+    <h1>Captive_Portal_Monitor</h1>
     <div class='monitor'>
       <p id='monitor'></p>
     </div>

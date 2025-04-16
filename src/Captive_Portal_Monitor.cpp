@@ -1,6 +1,6 @@
 //Webサーバーに関するメンバ関数の定義
 
-#include "Captive_Portal_String_Monitor.h"
+#include "Captive_Portal_Monitor.h"
 #include "index.h"
 
 const char *softAP_ssid = WIFI_SSID;
@@ -12,26 +12,26 @@ WebServer WebServerInstance(80);
 IPAddress apIP(172, 217, 28, 1);
 IPAddress netMsk(255, 255, 255, 0);
 
-Captive_Portal_String_Monitor::Captive_Portal_String_Monitor () {}
+Captive_Portal_Monitor::Captive_Portal_Monitor () {}
 
-char Captive_Portal_String_Monitor::data[256];
+char Captive_Portal_Monitor::data[10*1024];
 
-void Captive_Portal_String_Monitor::update (char *p) {
+void Captive_Portal_Monitor::update (char *p) {
   strncpy(data, p, 256);
 }
 
-void Captive_Portal_String_Monitor::handleRoot () {
+void Captive_Portal_Monitor::handleRoot () {
   WebServerInstance.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   WebServerInstance.sendHeader("Pragma", "no-cache");
   WebServerInstance.sendHeader("Expires", "-1");
   WebServerInstance.send(200, "text/html", html);
 }
 
-void Captive_Portal_String_Monitor::getData () {
+void Captive_Portal_Monitor::getData () {
   WebServerInstance.send(200, "text/html", data);
 }
 
-void Captive_Portal_String_Monitor::loop (void *param) {
+void Captive_Portal_Monitor::loop (void *param) {
     while (true) {
         DNSServerInstance.processNextRequest();
         WebServerInstance.handleClient();
@@ -39,7 +39,7 @@ void Captive_Portal_String_Monitor::loop (void *param) {
     }
 }
 
-void Captive_Portal_String_Monitor::begin () {
+void Captive_Portal_Monitor::begin () {
   WiFi.disconnect(true);//これがないとwebServerを再起動できない
   delay(1000);//この遅延は必須（これがないとwebServerが起動しない）
   WiFi.softAPConfig(apIP, apIP, netMsk);
