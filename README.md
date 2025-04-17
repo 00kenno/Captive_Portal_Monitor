@@ -8,15 +8,17 @@ Raspberry Pico W, Pico 2W および ESP32 を搭載するWiFiデバイスでコ�
 
 ## Methods | メソッド
 インスタンス化することにより，利用可能になります．
+インスタンス化する際には，char文字列の先頭ポインタを渡す必要があります．
 ここでは，以下のようにインスタンス化したとします．
 
 ```cpp
-Captive_Portal_Monitor monitor;
+static char data[256];
+Captive_Portal_Monitor monitor(data);
 ```
 
 ### monitor.begin()
 setup()内で実行します．
-FreeRTOSのxTaskCreateが内部で実行され，WebServerが開始します．
+FreeRTOSのxTaskCreateStaticが内部で実行され，WebServerが開始します．
 
 ```cpp
 void setup() {
@@ -24,16 +26,14 @@ void setup() {
 }
 ```
 
-### monitor.update(char *p)
-任意の場所で実行できます．
-monitorインスタンスが持つ10KBのchar型の配列(data)にその内容がコピーされます．
+### ~~monitor.update(char *p)~~ 廃止
+### 更新方法
+monitorインスタンスに渡したchar文字列の先頭ポインタ（ここでは「data」）の内容を更新することで表示される内容が変わります．
 
 ```cpp
 void loop() {
   uint32_t now = millis(); // Returns the number of milliseconds passed since the Arduino board began running the current program.
-  char data[256];
   sprintf(data, "%d", now);
-  monitor.update(data); // Update data in monitor.
   delay(100);
 }
 ```
