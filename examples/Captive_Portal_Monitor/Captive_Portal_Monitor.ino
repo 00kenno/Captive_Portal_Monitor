@@ -9,9 +9,9 @@
 //→「.ZIP形式のライブラリをインストール...」
 
 //「ログインが必要です」などと表示される画面（キャプティブポータル）で
-//10KB以下の任意の文字列（改行コードを含む）をモニターできます．
+//任意の文字列（改行コードを含む）をモニターできます．
 
-//WiFiのSSIDは Captive_Portal_String_Monitor
+//WiFiのSSIDは Captive_Portal_Monitor
 //WiFiのPASSWORDは 12345678 です．
 
 //2025.04.07時点で以下のマイコンでコンパイルが可能です．
@@ -21,7 +21,8 @@
 
 #include <Captive_Portal_Monitor.h>
 
-Captive_Portal_Monitor monitor;
+static char data[256]; // 静的メモリ領域に配列を作成
+Captive_Portal_Monitor monitor(data);
 
 void setup() {
   monitor.begin();
@@ -29,8 +30,6 @@ void setup() {
 
 void loop() {
   uint32_t now = millis();
-  static char str[128];
   sprintf(str, "改行コードが使用可能です．\n\n以下は実行を開始してからの時間をミリ秒で表示しています．\n%d", now);
-  monitor.update(str);
   delay(100);
 }

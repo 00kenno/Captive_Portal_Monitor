@@ -7,17 +7,19 @@ const char *softAP_ssid = WIFI_SSID;
 const char *softAP_password = WIFI_PASSWORD;
 const byte DNS_PORT = 53;
 
+#define STACK_SIZE 4096
+StaticTask_t xTaskBuffer;
+StackType_t xStack[STACK_SIZE];
+
 DNSServer DNSServerInstance;
 WebServer WebServerInstance(80);
 IPAddress apIP(172, 217, 28, 1);
 IPAddress netMsk(255, 255, 255, 0);
 
-Captive_Portal_Monitor::Captive_Portal_Monitor () {}
+char* Captive_Portal_Monitor::_p = NULL;
 
-char Captive_Portal_Monitor::data[10*1024];
-
-void Captive_Portal_Monitor::update (char *p) {
-  strncpy(data, p, 256);
+Captive_Portal_Monitor::Captive_Portal_Monitor (char* p) {
+  _p = p;
 }
 
 void Captive_Portal_Monitor::handleRoot () {
@@ -28,14 +30,14 @@ void Captive_Portal_Monitor::handleRoot () {
 }
 
 void Captive_Portal_Monitor::getData () {
-  WebServerInstance.send(200, "text/html", data);
+  WebServerInstance.send(200, "text/html", _p);
 }
 
 void Captive_Portal_Monitor::loop (void *param) {
     while (true) {
         DNSServerInstance.processNextRequest();
         WebServerInstance.handleClient();
-        delay(10);
+        vTaskDelay(10/portTICK_RATE_MS);
     }
 }
 
@@ -61,12 +63,13 @@ void Captive_Portal_Monitor::begin () {
   WebServerInstance.begin();
 
   //マルチスレッドでタスクを実行
-  xTaskCreate(
+  xTaskCreateStatic(
     loop, //タスク関数へのポインタ
     "WebServerLoop", //タスク名
-    4096, //スタックサイズ
+    STACK_SIZE, //スタックサイズ
     NULL, //タスクのパラメータのポインタ
-    2, //タスクの優先順位
-    NULL //タスクのHandleへのポインタ
+    10, //タスクの優先順位
+    xStack, //タスクのスタックとして使用する配列
+    &xTaskBuffer //タスクのデータ構造体へのポインタ
   );
 }

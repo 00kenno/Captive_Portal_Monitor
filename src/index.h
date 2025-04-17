@@ -3,7 +3,7 @@
 #ifndef INDEX_H
 #define INDEX_H
 
-char html[] = R"(
+static const char html[] = R"(
 
 <!DOCTYPE html>
 <html>
@@ -76,7 +76,7 @@ char html[] = R"(
       }, 100);
     }
 
-    setTimeout(updateData,100);
+    setTimeout(updateData,500);
   </script>
 </html>
 
