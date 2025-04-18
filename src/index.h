@@ -56,7 +56,7 @@ static const char html[] = R"(
         .then(() => {
           setTimeout(() => {
             updateData();
-          }, 100);
+          }, 500);
         })
         .catch(() => {
           console.error('Rejected getData');
@@ -76,7 +76,7 @@ static const char html[] = R"(
       }, 100);
     }
 
-    setTimeout(updateData,500);
+    setTimeout(updateData,100);
   </script>
 </html>
 
