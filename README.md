@@ -28,7 +28,7 @@ void setup() {
 
 ### ~~monitor.update(char *p)~~ 廃止
 ### 更新方法
-monitorインスタンスに渡したchar文字列の先頭ポインタ（ここでは「data」）の内容を更新することで表示される内容が変わります．
+monitorインスタンスに渡したポインタが指すchar文字列（ここでは「data」）の内容を更新することで表示される内容が変わります．
 
 ```cpp
 void loop() {
